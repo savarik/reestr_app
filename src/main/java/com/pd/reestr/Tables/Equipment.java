@@ -1,94 +1,57 @@
 package com.pd.reestr.Tables;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name="Equipment")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Equipment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Column(name="name", nullable = false)
+    String name;
 
+    @Column(name="okid2")
+    String okid2;
 
-    @Column(name="model",nullable = false)
-    String model;
+    @Column(name="measurment")
+    String measure;
 
+    @Column(name="price", precision = 11, scale = 2)
+    BigDecimal price;
 
+    @Column(name="count")
+    int count;
 
-    @Column(name="status",nullable = false)
-    String status;
+    @Column(name="sum")
+    int sum;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
+    @Column(name="debet", precision = 12,scale = 2)
+    BigDecimal debet;
 
-    // ВНЕШНИЙ КЛЮЧ к таблице audience (текущее местоположение)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "audience_id", nullable = false)
-    private Audience currentAudience;
+    @Column(name="credit", precision = 12,scale = 2)
+    BigDecimal credit;
 
-    @OneToMany(mappedBy = "equipment", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Movements> movements = new ArrayList<>();
+    @Column(name="country")
+    String country;
 
-    public Equipment(Audience currentAudience, Category category, String status, String model) {
-        this.currentAudience = currentAudience;
-        this.category = category;
-        this.status = status;
-        this.model = model;
-    }
+    @Column(name="description")
+    String description;
 
-    public Long getId() {
-        return id;
-    }
+    @Column(name="sourse")
+    String source_exel;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Audience getCurrentAudience() {
-        return currentAudience;
-    }
-
-    public void setCurrentAudience(Audience currentAudience) {
-        this.currentAudience = currentAudience;
-    }
-
-    public List<Movements> getMovements() {
-        return movements;
-    }
-
-    public void setMovements(List<Movements> movements) {
-        this.movements = movements;
-    }
 }
