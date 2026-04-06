@@ -9,7 +9,7 @@ docker run -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres 
 Then start the container and open DBeaver.
 ## Connection
 In DBeaver, click on New Connection. Then enter the correct information:
-- host - localhost или 127.0.0.1
+- host - localhost or 127.0.0.1
 - port - 5432
 - It is recommended to leave the *Database* field empty and check the box next to *Show all database*
 - authentication - Database Native
@@ -27,5 +27,5 @@ Then right-click on the newly created database and set it as the default.
 ## Result
 After completing the steps above, the database is ready to use.  
 When you run the application, a table is created, which you can 
-find in the Таблицы section of your database:  
+find in the Tables section of your database:  
 ![first_table](img/first_table.png)
