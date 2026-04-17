@@ -1,0 +1,90 @@
+/* Сброс базовых отступов */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Вертикальное и горизонтальное центрирование */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: system-ui, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Контейнер заголовка — центрирован над кнопками */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* Главный заголовок h1 */
+.header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+/* Подзаголовок-пояснение (p) */
+.header p {
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+/* Родительский контейнер для двух кнопок (друг под другом) */
+.buttons {
+    display: flex;
+    flex-direction: column;   /* располагаем вертикально */
+    align-items: center;
+    gap: 24px;                /* расстояние между кнопками */
+    width: 100%;
+    max-width: 400px;         /* ограничиваем ширину, чтобы кнопки не растягивались на весь экран */
+}
+
+/* Общий стиль для обеих «кнопочных карточек» */
+.button_viewer,
+.button_editor {
+    width: 100%;
+    text-align: center;
+   
+    padding: 8px 0;
+}
+
+.button_viewer button,
+.button_editor button {
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 1.25rem;
+    font-weight: 500;
+    border: 1px solid #ccc;
+    background: transparent;
+    cursor: pointer;
+    transition: 0.1s linear;
+    font-family: inherit;
+}
+
+/* Заголовок h2 */
+.button_viewer h2,
+.button_editor h2 {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    font-weight: normal;
+    line-height: 1.4;
+    text-align: center;
+    padding: 0 12px;
+}
+
+/* Небольшой эффект при наведении */
+button:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+    border-color: #999;
+}
+
+/* Убираем стандартный отступ у body */
+body {
+    margin: 0;
+    padding: 20px;
+}
