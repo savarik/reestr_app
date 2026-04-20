@@ -6,11 +6,10 @@ import java.time.LocalDate;
 public class SearchFilterRequest {
     private String equipmentName;
     private String supplier;
-    private LocalDate dateFrom;
-    private LocalDate dateTo;
     private BigDecimal amountFrom;
     private BigDecimal amountTo;
-    private String contractNumber;
+    private String country;
+    private String okid2;
 
     public String getEquipmentName() {
         return equipmentName;
@@ -26,22 +25,6 @@ public class SearchFilterRequest {
 
     public void setSupplier(String supplier) {
         this.supplier = supplier;
-    }
-
-    public LocalDate getDateFrom() {
-        return dateFrom;
-    }
-
-    public void setDateFrom(LocalDate dateFrom) {
-        this.dateFrom = dateFrom;
-    }
-
-    public LocalDate getDateTo() {
-        return dateTo;
-    }
-
-    public void setDateTo(LocalDate dateTo) {
-        this.dateTo = dateTo;
     }
 
     public BigDecimal getAmountFrom() {
@@ -60,11 +43,19 @@ public class SearchFilterRequest {
         this.amountTo = amountTo;
     }
 
-    public String getContractNumber() {
-        return contractNumber;
+    public String getCountry() {
+        return country;
     }
 
-    public void setContractNumber(String contractNumber) {
-        this.contractNumber = contractNumber;
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getOkid2() {
+        return okid2;
+    }
+
+    public void setOkid2(String okid2) {
+        this.okid2 = okid2;
     }
 }

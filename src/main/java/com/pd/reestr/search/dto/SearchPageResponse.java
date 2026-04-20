@@ -1,11 +1,13 @@
 package com.pd.reestr.search.dto;
 
+import com.pd.reestr.DTO.EquipBigDto;
+import com.pd.reestr.DTO.Equipment_country_dto;
 import com.pd.reestr.search.model.SearchEquipmentRecord;
 
 import java.util.List;
 
 public class SearchPageResponse {
-    private List<SearchEquipmentRecord> content;
+    private List<Equipment_country_dto> content;
     private long totalElements;
     private int totalPages;
     private int page;
@@ -16,7 +18,7 @@ public class SearchPageResponse {
     public SearchPageResponse() {
     }
 
-    public SearchPageResponse(List<SearchEquipmentRecord> content, long totalElements, int totalPages,
+    public SearchPageResponse(List<Equipment_country_dto> content, long totalElements, int totalPages,
                               int page, int size, String sortBy, String sortDir) {
         this.content = content;
         this.totalElements = totalElements;
@@ -27,11 +29,11 @@ public class SearchPageResponse {
         this.sortDir = sortDir;
     }
 
-    public List<SearchEquipmentRecord> getContent() {
+    public List<Equipment_country_dto> getContent() {
         return content;
     }
 
-    public void setContent(List<SearchEquipmentRecord> content) {
+    public void setContent(List<Equipment_country_dto> content) {
         this.content = content;
     }
 

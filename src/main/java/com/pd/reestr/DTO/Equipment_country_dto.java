@@ -4,14 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.math.BigDecimal;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrdinaryDto {
-    private String okid2;
+public class Equipment_country_dto {
     private String name;
-    private int measurement;
+    private String okid2;
     private int count;
+    private String country;
 }

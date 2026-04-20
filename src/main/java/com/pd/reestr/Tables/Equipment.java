@@ -30,13 +30,13 @@ public class Equipment {
     @Column(name="measurment")
     String measure;
 
-    @Column(name="price", precision = 11, scale = 2)
+    @Column(name="price", precision = 11, scale = 2, nullable = false)
     BigDecimal price;
 
-    @Column(name="count")
+    @Column(name="count", nullable = false)
     int count;
 
-    @Column(name="sum")
+    @Column(name="sum", nullable = false)
     int sum;
 
     @Column(name="debet", precision = 12,scale = 2)

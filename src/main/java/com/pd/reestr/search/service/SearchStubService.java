@@ -1,5 +1,7 @@
 package com.pd.reestr.search.service;
 
+import com.pd.reestr.DTO.EquipBigDto;
+import com.pd.reestr.DTO.Equipment_country_dto;
 import com.pd.reestr.search.dto.SearchFilterRequest;
 import com.pd.reestr.search.dto.SearchPageResponse;
 import com.pd.reestr.search.model.SearchEquipmentRecord;
@@ -16,17 +18,15 @@ import java.util.stream.Collectors;
 @Service
 public class SearchStubService {
 
-    private final List<SearchEquipmentRecord> records = createStubData();
+    private final List<Equipment_country_dto> records = createStubData();
 
     public SearchPageResponse search(SearchFilterRequest filter, int page, int size, String sortBy, String sortDir) {
-        List<SearchEquipmentRecord> filtered = records.stream()
-                .filter(record -> containsIgnoreCase(record.getEquipmentName(), filter.getEquipmentName()))
-                .filter(record -> containsIgnoreCase(record.getSupplier(), filter.getSupplier()))
-                .filter(record -> equalsIfPresent(record.getContractNumber(), filter.getContractNumber()))
-                .filter(record -> dateFromMatches(record.getContractDate(), filter.getDateFrom()))
-                .filter(record -> dateToMatches(record.getContractDate(), filter.getDateTo()))
-                .filter(record -> amountFromMatches(record.getAmount(), filter.getAmountFrom()))
-                .filter(record -> amountToMatches(record.getAmount(), filter.getAmountTo()))
+        List<Equipment_country_dto> filtered = records.stream()
+                .filter(record -> containsIgnoreCase(record.getName(), filter.getEquipmentName()))
+                .filter(record -> amountFromMatches(BigDecimal.valueOf(record.getCount()), filter.getAmountFrom()))
+                .filter(record -> amountToMatches(BigDecimal.valueOf(record.getCount()), filter.getAmountTo()))
+                .filter(record ->equalsIfPresent(record.getCountry(), filter.getCountry()))
+                .filter(record -> equalsIfPresent(record.getOkid2(), filter.getOkid2()))
                 .sorted(resolveComparator(sortBy, sortDir))
                 .collect(Collectors.toList());
 
@@ -35,7 +35,7 @@ public class SearchStubService {
         int fromIndex = safePage * safeSize;
         int toIndex = Math.min(fromIndex + safeSize, filtered.size());
 
-        List<SearchEquipmentRecord> pageContent = fromIndex >= filtered.size()
+        List<Equipment_country_dto> pageContent = fromIndex >= filtered.size()
                 ? List.of()
                 : filtered.subList(fromIndex, toIndex);
 
@@ -52,34 +52,40 @@ public class SearchStubService {
         );
     }
 
-    private Comparator<SearchEquipmentRecord> resolveComparator(String sortBy, String sortDir) {
-        Comparator<SearchEquipmentRecord> comparator;
+    private Comparator<Equipment_country_dto> resolveComparator(String sortBy, String sortDir) {
+        Comparator<Equipment_country_dto> comparator;
 
         switch (sortBy) {
-            case "equipmentName" -> comparator = Comparator.comparing(
-                    SearchEquipmentRecord::getEquipmentName,
-                    Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER)
-            );
-            case "supplier" -> comparator = Comparator.comparing(
-                    SearchEquipmentRecord::getSupplier,
-                    Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER)
-            );
-            case "amount" -> comparator = Comparator.comparing(
-                    SearchEquipmentRecord::getAmount,
-                    Comparator.nullsLast(BigDecimal::compareTo)
-            );
-            case "contractNumber" -> comparator = Comparator.comparing(
-                    SearchEquipmentRecord::getContractNumber,
-                    Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER)
-            );
-            case "contractDate" -> comparator = Comparator.comparing(
-                    SearchEquipmentRecord::getContractDate,
-                    Comparator.nullsLast(LocalDate::compareTo)
-            );
-            default -> comparator = Comparator.comparing(
-                    SearchEquipmentRecord::getContractDate,
-                    Comparator.nullsLast(LocalDate::compareTo)
-            );
+            case "name":
+                comparator = Comparator.comparing(
+                        Equipment_country_dto::getName,
+                        Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER)
+                );
+                break;
+            case "count":
+                comparator = Comparator.comparing(
+                        Equipment_country_dto::getCount,
+                        Integer::compareTo
+                );
+                break;
+            case "country":
+                comparator = Comparator.comparing(
+                        Equipment_country_dto::getCountry,
+                        Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER)
+                );
+                break;
+            case "okid2":
+                comparator = Comparator.comparing(
+                        Equipment_country_dto::getOkid2,
+                        Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER)
+                );
+                break;
+            default:
+                comparator = Comparator.comparing(
+                        Equipment_country_dto::getName,
+                        Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER)
+                );
+                break;
         }
 
         if ("desc".equalsIgnoreCase(sortDir)) {
@@ -109,14 +115,6 @@ public class SearchStubService {
         return actualValue.equalsIgnoreCase(filterValue);
     }
 
-    private boolean dateFromMatches(LocalDate actualDate, LocalDate dateFrom) {
-        return dateFrom == null || (actualDate != null && !actualDate.isBefore(dateFrom));
-    }
-
-    private boolean dateToMatches(LocalDate actualDate, LocalDate dateTo) {
-        return dateTo == null || (actualDate != null && !actualDate.isAfter(dateTo));
-    }
-
     private boolean amountFromMatches(BigDecimal actualAmount, BigDecimal amountFrom) {
         return amountFrom == null || (actualAmount != null && actualAmount.compareTo(amountFrom) >= 0);
     }
@@ -125,19 +123,43 @@ public class SearchStubService {
         return amountTo == null || (actualAmount != null && actualAmount.compareTo(amountTo) <= 0);
     }
 
-    private List<SearchEquipmentRecord> createStubData() {
-        List<SearchEquipmentRecord> data = new ArrayList<>();
+    private List<Equipment_country_dto> createStubData() {
+        List<Equipment_country_dto> data = new ArrayList<>();
 
-        data.add(new SearchEquipmentRecord(1L, "Ноутбук Lenovo ThinkPad", "ООО ТехСнаб",
-                LocalDate.of(2026, 1, 15), new BigDecimal("78000.00"), "CNT-001"));
-        data.add(new SearchEquipmentRecord(2L, "Проектор Epson EB-X06", "АО ПроектСервис",
-                LocalDate.of(2026, 2, 10), new BigDecimal("52000.00"), "CNT-002"));
-        data.add(new SearchEquipmentRecord(3L, "Принтер HP LaserJet", "ООО ТехСнаб",
-                LocalDate.of(2026, 2, 18), new BigDecimal("31000.00"), "CNT-003"));
-        data.add(new SearchEquipmentRecord(4L, "Монитор Samsung 24", "ИП Орлов",
-                LocalDate.of(2026, 3, 2), new BigDecimal("14500.00"), "CNT-004"));
-        data.add(new SearchEquipmentRecord(5L, "Сканер Canon", "АО КанцТрейд",
-                LocalDate.of(2026, 3, 20), new BigDecimal("22300.00"), "CNT-005"));
+        data.add(Equipment_country_dto.builder()
+                .name("Ноутбук Lenovo ThinkPad")
+                .count(5)
+                .country("Russia")
+                .okid2("45.98.11.031")
+                .build());
+
+        data.add(Equipment_country_dto.builder()
+                .name("Проектор Epson EB-X06")
+                .count(2)
+                .country("Russia")
+                .okid2("35.35.35.235")
+                .build());
+
+        data.add(Equipment_country_dto.builder()
+                .name("Принтер HP LaserJet")
+                .count(12)
+                .country("Russia")
+                .okid2("36.44.55.131")
+                .build());
+
+        data.add(Equipment_country_dto.builder()
+                .name("Монитор Samsung 24")
+                .count(4)
+                .country("Russia")
+                .okid2("36.01.25.18")
+                .build());
+
+        data.add(Equipment_country_dto.builder()
+                .name("Сканер Canon")
+                .count(14)
+                .country("Russia")
+                .okid2("32.99.53.130")
+                .build());
 
         return data;
     }
