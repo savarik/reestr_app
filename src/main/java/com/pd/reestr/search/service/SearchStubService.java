@@ -4,11 +4,9 @@ import com.pd.reestr.DTO.EquipBigDto;
 import com.pd.reestr.DTO.Equipment_country_dto;
 import com.pd.reestr.search.dto.SearchFilterRequest;
 import com.pd.reestr.search.dto.SearchPageResponse;
-import com.pd.reestr.search.model.SearchEquipmentRecord;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;

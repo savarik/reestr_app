@@ -1,8 +1,6 @@
 package com.pd.reestr.search.dto;
 
-import com.pd.reestr.DTO.EquipBigDto;
 import com.pd.reestr.DTO.Equipment_country_dto;
-import com.pd.reestr.search.model.SearchEquipmentRecord;
 
 import java.util.List;
 
