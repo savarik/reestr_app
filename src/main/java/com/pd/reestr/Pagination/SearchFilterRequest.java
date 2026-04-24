@@ -1,7 +1,6 @@
-package com.pd.reestr.search.dto;
+package com.pd.reestr.Pagination;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 public class SearchFilterRequest {
     private String equipmentName;

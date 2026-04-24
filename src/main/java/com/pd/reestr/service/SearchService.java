@@ -1,11 +1,11 @@
-package com.pd.reestr.search.service;
+package com.pd.reestr.service;
 
 import com.pd.reestr.DTO.Equipment_country_dto;
 import com.pd.reestr.Mappers.EquipmentMapper;
 import com.pd.reestr.Tables.Equipment;
 import com.pd.reestr.repository.EquipmentRepository;
-import com.pd.reestr.search.dto.SearchFilterRequest;
-import com.pd.reestr.search.dto.SearchPageResponse;
+import com.pd.reestr.Pagination.SearchFilterRequest;
+import com.pd.reestr.Pagination.SearchPageResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -16,7 +16,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 

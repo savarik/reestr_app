@@ -1,4 +1,4 @@
-package com.pd.reestr.search.dto;
+package com.pd.reestr.Pagination;
 
 import com.pd.reestr.DTO.Equipment_country_dto;
 

@@ -1,9 +1,8 @@
-package com.pd.reestr.search.controller;
+package com.pd.reestr.controller;
 
-import com.pd.reestr.search.dto.SearchFilterRequest;
-import com.pd.reestr.search.dto.SearchPageResponse;
-import com.pd.reestr.search.service.SearchService;
-import com.pd.reestr.search.service.SearchService;
+import com.pd.reestr.Pagination.SearchFilterRequest;
+import com.pd.reestr.Pagination.SearchPageResponse;
+import com.pd.reestr.service.SearchService;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -26,7 +25,7 @@ public class SearchController {
             @RequestParam(required = false) BigDecimal amountFrom,
             @RequestParam(required = false) BigDecimal amountTo,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "30") int size,
             @RequestParam(defaultValue = "name") String sortBy,
             @RequestParam(defaultValue = "asc") String sortDir
     ) {

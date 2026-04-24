@@ -1,9 +1,8 @@
-package com.pd.reestr.search.service;
+package com.pd.reestr.service;
 
-import com.pd.reestr.DTO.EquipBigDto;
 import com.pd.reestr.DTO.Equipment_country_dto;
-import com.pd.reestr.search.dto.SearchFilterRequest;
-import com.pd.reestr.search.dto.SearchPageResponse;
+import com.pd.reestr.Pagination.SearchFilterRequest;
+import com.pd.reestr.Pagination.SearchPageResponse;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
