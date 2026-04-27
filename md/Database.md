@@ -13,7 +13,7 @@ In DBeaver, click on New Connection. Then enter the correct information:
 - port - 5432
 - It is recommended to leave the *Database* field empty and check the box next to *Show all database*
 - authentication - Database Native
-- username и password - postgres
+- username and password - postgres
   
 ![connection](img/connection.png)  
 
