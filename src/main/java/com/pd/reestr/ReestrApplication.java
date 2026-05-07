@@ -9,9 +9,7 @@ public class ReestrApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ReestrApplication.class, args);
 	}
-
 }
-
 
 //search test
 //package com.pd.reestr;
