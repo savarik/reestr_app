@@ -1,30 +1,39 @@
 <!DOCTYPE html> 
 <html lang="ru">
-	<head>
-		<link rel="stylesheet" href="style.css">
-	
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		
-		<title>Авторизация</title>
-	</head>
-		
-	<body>
-		<div class="header">
-		<h1>Выберите тип доступа</h1>
-		<p>Демонстрационная версия без полной авторизации</p>
-		</div>
-		
-		<div class="buttons">
-			<div class="button_viewer">
-				<button>Обычный доступ</button>	
-				<h2>Только поиск и просмотр</h2>
-			</div>
-			
-			<div class="button_editor">
-				<button>Расширенный доступ</button>	
-				 <h2>Поиск, просмотр, редактирование, добавление файлов</h2>
-			</div>
-		</div>
-	</body>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Выберите тип доступа</h1>
+        <p>Демонстрационная версия без полной авторизации</p>
+    </div>
+    
+    <div class="buttons">
+        <div class="button_viewer">
+            <button onclick="selectRole('viewer')">Обычный доступ</button>
+            <h2>Только поиск и просмотр</h2>
+        </div>
+        
+        <div class="button_editor">
+            <button onclick="selectRole('admin')">Расширенный доступ</button>
+            <h2>Поиск, просмотр, редактирование, добавление</h2>
+        </div>
+    </div>
+
+    <script>
+        function selectRole(role) {
+            localStorage.setItem('userRole', role);
+            
+            if (role === 'viewer') {
+                window.location.href = 'view.html';
+            } else {
+                window.location.href = 'edit.html';
+            }
+        }
+    </script>
+</body>
 </html>
