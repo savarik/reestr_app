@@ -26,6 +26,11 @@ public class CreateService {
             throw new IllegalArgumentException("Оборудование с именем '" + request.getName() + "' уже существует");
         }
 
+        // Добавляем префикс, если поле не пустое
+        if (request.getOkid2() == null || request.getOkid2().isBlank()) {
+            throw new IllegalArgumentException("ОКПД-2 должен состоять только из цифр");
+        }
+
         if (request.getName() == null || request.getName().isBlank()) {
             throw new IllegalArgumentException("Название оборудования не может быть пустым");
         }
@@ -36,7 +41,7 @@ public class CreateService {
 
         Equipment equipment = Equipment.builder()
                 .name(request.getName())
-                .okid2(request.getOkid2())
+                .okid2("ОКПД2-" + request.getOkid2())
                 .measure(request.getMeasure())
                 .price(request.getPrice() != null ? request.getPrice() : BigDecimal.ZERO)
                 .count(request.getCount() != null ? request.getCount() : 0)
