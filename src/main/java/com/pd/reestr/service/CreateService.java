@@ -31,7 +31,7 @@ public class CreateService {
         }
 
         if (request.getCount()<=0) {
-            throw new IllegalArgumentException("количество оборудования должно быть больше 0");
+            throw new IllegalArgumentException("количество оборудования должно быть больше 1");
         }
 
         Equipment equipment = Equipment.builder()
