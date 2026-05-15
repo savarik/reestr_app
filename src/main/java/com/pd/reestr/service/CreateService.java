@@ -14,9 +14,11 @@ import java.math.BigDecimal;
 @Transactional
 public class CreateService {
     private final EquipmentRepository repository;
+    private final EquipmentMapper mapper;
 
-    public CreateService(EquipmentRepository repository) {
+    public CreateService(EquipmentRepository repository, EquipmentMapper mapper) {
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     public Equipment_country_dto createEquipment(UpdateDto request) {
@@ -24,30 +26,28 @@ public class CreateService {
             throw new IllegalArgumentException("Оборудование с именем '" + request.getName() + "' уже существует");
         }
 
-        if(repository.findByName(request.getName())==null||repository.findByName(request.getName()).isEmpty()){
-            throw new IllegalArgumentException("Для создания оборудования его название не должно быть пустым");
+        if (request.getName() == null || request.getName().isBlank()) {
+            throw new IllegalArgumentException("Название оборудования не может быть пустым");
         }
 
         Equipment equipment = Equipment.builder()
                 .name(request.getName())
                 .okid2(request.getOkid2())
                 .measure(request.getMeasure())
-                .price(request.getPrice())
+                .price(request.getPrice() != null ? request.getPrice() : BigDecimal.ZERO)
                 .count(request.getCount() != null ? request.getCount() : 0)
                 .sum(request.getPrice() != null && request.getCount() != null
                         ? request.getPrice().multiply(BigDecimal.valueOf(request.getCount())).intValue()
                         : 0)
                 .country(request.getCountry())
                 .description(request.getDescription())
+                //.debet(BigDecimal.ZERO)
+                //.credit(BigDecimal.ZERO)
+                .source_exel("web_created")
                 .build();
 
         Equipment saved = repository.save(equipment);
 
-        return Equipment_country_dto.builder()
-                .name(saved.getName())
-                .okid2(saved.getOkid2())
-                .count(saved.getCount())
-                .country(saved.getCountry())
-                .build();
+        return mapper.toCountryDto(saved);
     }
 }
