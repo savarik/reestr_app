@@ -6,13 +6,17 @@
 }
 
 body {
-    /* Вертикальное и горизонтальное центрирование */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     font-family: system-ui, 'Segoe UI', 'Roboto', sans-serif;
+   
+    background: url('/images/background.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 20px;
 }
 
 /* Контейнер заголовка — центрирован над кнопками */
