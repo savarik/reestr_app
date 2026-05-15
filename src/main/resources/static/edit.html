@@ -157,35 +157,35 @@
             }
         }
         
-        async function addNewItem() {
-            const newName = document.getElementById('newName').value;
-            const newCountry = document.getElementById('newCountry').value;
-            const newCount = document.getElementById('newCount').value;
-            const newOkid2 = document.getElementById('newOkid2').value;
-            
-            if (!newName) {
-                alert('Введите название!');
-                return;
-            }
-            
-            try {
-                // Добавление
-                await updateEquipment(newName, {
-                    name: newName,
-                    country: newCountry || null,
-                    count: newCount ? parseInt(newCount) : null,
-                    okid2: newOkid2 || null
-                });
-                alert('✅ Запись добавлена');
-                document.getElementById('newName').value = '';
-                document.getElementById('newCountry').value = '';
-                document.getElementById('newCount').value = '';
-                document.getElementById('newOkid2').value = '';
-                loadData();
-            } catch (error) {
-                alert('Пока мы так не умеем, но работаем над этим');
-            }
-        }
+       async function addNewItem() {
+    const newName = document.getElementById('newName').value;
+    const newCountry = document.getElementById('newCountry').value;
+    const newCount = document.getElementById('newCount').value;
+    const newOkid2 = document.getElementById('newOkid2').value;
+    
+    if (!newName) {
+        alert('Введите название!');
+        return;
+    }
+    
+    try {
+        await createEquipment({
+            name: newName,
+            country: newCountry || null,
+            count: newCount ? parseInt(newCount) : 0,
+            okid2: newOkid2 || null
+        });
+        alert('✅ Запись добавлена');
+        document.getElementById('newName').value = '';
+        document.getElementById('newCountry').value = '';
+        document.getElementById('newCount').value = '';
+        document.getElementById('newOkid2').value = '';
+        loadData();
+    } catch (error) {
+        alert('❌ Ошибка добавления: ' + error.message);
+    }
+
+}
         
         function escapeHtml(str) {
             if (!str) return '';
