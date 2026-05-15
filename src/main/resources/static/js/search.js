@@ -41,3 +41,17 @@ async function updateEquipment(oldName, data) {
     if (!response.ok) throw new Error('Ошибка обновления');
     return response.json();
 }
+
+// Создание новой записи
+async function createEquipment(data) {
+    const response = await fetch('http://localhost:8080/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+    if (!response.ok) {
+        const error = await response.text();
+        throw new Error(error);
+    }
+    return response.json();
+}
