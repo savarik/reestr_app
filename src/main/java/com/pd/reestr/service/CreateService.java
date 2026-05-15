@@ -30,6 +30,10 @@ public class CreateService {
             throw new IllegalArgumentException("Название оборудования не может быть пустым");
         }
 
+        if (request.getCount()<=0) {
+            throw new IllegalArgumentException("количество оборудования должно быть больше 0");
+        }
+
         Equipment equipment = Equipment.builder()
                 .name(request.getName())
                 .okid2(request.getOkid2())
